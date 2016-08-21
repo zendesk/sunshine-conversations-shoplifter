@@ -1,0 +1,9 @@
+<p>Smooch enables funtime happy magic bingo truffles.</p>
+<p>Do you wanna do it?</p>
+
+<form action="<%= smoochBaseUrl %>/oauth/authorize" method="get">
+  <input name="client_id" type="hidden" value="<%= clientId %>">
+  <input name="redirect_uri" type="hidden" value="<%= redirectUrl %>">
+  <input name="response_type" type="hidden" value="code">
+  <input type="submit" value="Add to Smooch" id="allow">
+</form>

@@ -22,7 +22,7 @@ const production = {
 }
 
 if (process.env.NODE_ENV === 'production') {
-    module.exports = _.defaults(production, config);
+    module.exports = _.defaults(config, production);
 } else {
-    module.exports = _.defaults(development, config);
+    module.exports = _.defaults(config, development);
 }

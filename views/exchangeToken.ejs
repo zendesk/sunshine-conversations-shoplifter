@@ -1,11 +1,7 @@
 <p>You have a code: <%= code %></p>
 <p>Want to exchange it for a token?</p>
-
-<form action="<%= smoochBaseUrl %>/oauth/token" method="post">
+<form action="/exchange" method="get">
   <input name="code" type="hidden" value="<%= code %>">
-  <input name="grant_type" type="hidden" value="authorization_code">
-  <input name="client_id" type="hidden" value="<%= clientId %>">
-  <input name="client_secret" type="hidden" value="<%= secret %>">
   <input type="submit" value="Yes" id="allow">
 </form>
 <br/>

@@ -4,6 +4,7 @@ const ejsLocals = require('ejs-locals');
 const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser')
 const config = require('./config');
+const request = require('request');
 
 const app = express();
 
@@ -38,6 +39,20 @@ app.get('/oauth', (req, res) => {
         props.code = req.query.code;
         return res.render('exchangeToken', props);
     }
+})
+
+
+app.get('/exchange', (req, res) => {
+    request.post(`${config.smoochBaseUrl}/oauth/token`, {
+        form: {
+            code: req.query.code,
+            grant_type: 'authorization_code',
+            client_id: config.clientId,
+            client_secret: config.secret
+        }
+    }, (err, http, body) => {
+        res.send(err || body);
+    });
 })
 
 app.listen(process.env.PORT || 3000);

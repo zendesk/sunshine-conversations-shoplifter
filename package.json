@@ -15,6 +15,7 @@
     "express": "^4.14.0",
     "express-ejs-layouts": "^2.2.0",
     "lodash": "^4.15.0",
-    "request": "^2.74.0"
+    "request": "^2.74.0",
+    "smooch-core": "^2.0.0"
   }
 }

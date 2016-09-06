@@ -6,6 +6,10 @@
   "scripts": {
     "start": "node server.js"
   },
+  "engines": {
+    "node": "6.2.0",
+    "npm": "3.8.9"
+  },
   "author": "Andrew Lavers <alavers@system42.net> (http://smooch.io)",
   "license": "ISC",
   "dependencies": {

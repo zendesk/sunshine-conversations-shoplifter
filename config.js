@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-const config = {
+let config = {
     smoochBaseUrl: process.env.SMOOCH_BASE_URL,
     clientId: process.env.CLIENT_ID,
     redirectUrl: process.env.REDIRECT_URL,
@@ -17,12 +17,17 @@ const development = {
 const production = {
     smoochBaseUrl: 'https://app.smooch.io',
     clientId: 'shoplifter',
-    redirectUrl: 'https://shoplifter.herokuapp.com/oauth',
-    secret: 'secret'
+    redirectUrl: 'https://shoplifter.herokuapp.com/oauth'
 }
 
 if (process.env.NODE_ENV === 'production') {
-    module.exports = _.defaults(config, production);
+    config = _.defaults(config, production);
 } else {
-    module.exports = _.defaults(config, development);
+    config = _.defaults(config, development);
 }
+
+if (!config.secret) {
+    throw new Error('Missing environment variable: SECRET');
+}
+
+module.exports = config;

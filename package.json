@@ -21,5 +21,9 @@
     "lodash": "^4.15.0",
     "request": "^2.74.0",
     "smooch-core": "^2.0.0"
+  },
+  "devDependencies": {
+    "jwt-decode": "^2.1.0",
+    "jwt-simple": "^0.5.0"
   }
 }

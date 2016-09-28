@@ -4,7 +4,7 @@ const ejsLocals = require('ejs-locals');
 const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser')
 const request = require('request');
-const jwt = require('jwt-decode');
+const jwtDecode = require('jwt-decode');
 
 const config = require('./config');
 const smoochApi = require('./smoochApi');
@@ -74,7 +74,7 @@ function exchangeCode(code) {
  * Extracts appId from the jwt
  */
 function extractAppId(token) {
-  const body = jwt.decode(token);
+  const body = jwtDecode(token);
   return body.appId;
 }
 

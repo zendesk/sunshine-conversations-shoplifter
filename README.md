@@ -17,9 +17,6 @@ set REDIRECT_URL <your_redirect_url>
 set SECRET <your_secret>
 ```
 
-App will target http://localhost:8091 while in dev mode
-Set `NODE_ENV` to production to target https://app.smooch.io
-
 ```bash
 set NODE_ENV production
 ```

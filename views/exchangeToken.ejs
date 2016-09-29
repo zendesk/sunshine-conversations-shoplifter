@@ -2,7 +2,6 @@
 <p>Want to exchange it for a token?</p>
 <form action="/exchange" method="get">
   <input name="code" type="hidden" value="<%= code %>">
-  <input type="submit" value="Yes" id="allow">
+  <input class="btn btn-primary" type="submit" value="Yes" id="allow">
+  <a href="/"><button class="btn btn-default" type="button">No</button></a>
 </form>
-<br/>
-<a href="/"><button>No</button></a>

@@ -1,0 +1,4 @@
+{
+  "smoochBaseUrl": "https://app.smooch.io",
+  "redirectUrl": "http://localhost:3000/oauth"
+}

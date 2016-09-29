@@ -1,39 +1,94 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/united/bootstrap.min.css">
     <style>
         body {
-            color: white;
-            background-color: black;
-            font-family: Tahoma;
+            color: #333;
+            background-color: #ededed;
+            font-family: Arial;
             font-size: 18px;
+        }
+        .layout-container {
+            background-color: white;
+            margin: 40px;
+            padding: 40px;
         }
         .title img {
             height: 100px;
             float: left;
+            border-radius: 16px;
+            margin-right: 20px;
         }
         .title {
             height: 100px;
+            margin-bottom: 25px;
         }
         .title .text {
             position: relative;
             top: 25%;
-            font-family: Georgia;
+            font-family: Arial;
             font-size: 36px;
         }
         .contet {
             clear: both;
         }
+        hr {
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 1px solid #ccc;
+            margin: 1em 0;
+            padding: 0;
+        }
+        .btn-primary {
+            background-color: black;
+            border-color: black;
+        }
+        .btn-primary:hover,.btn-primary:focus,.btn-primary:active {
+            background-color: #4a4a4a;
+            border-color: #4a4a4a;
+        }
+        .btn-primary:active:focus {
+            background-color: #5b5b5b;
+            border-color: #5b5b5b;
+        }
+        .btn {
+            width: 100px;
+        }
+        .btn:focus,.btn:active:focus {
+            outline: none;
+        }
+        p {
+            margin: 0 0 15px;
+        }
+        .setting {
+            width: 200px;
+            display: inline-block;
+        }
+        h3 {
+            font-family: Arial;
+        }
+        #nope {
+            display: none;
+            margin-top: 7px;
+            float: right;
+        }
+        .save-container {
+            width: 200px;
+        }
     </style>
   </head>
   <body>
-    <div class="title">
-      <img src="icon.png">
-      <div class="text">Shoplifter</div>
-    </div>
-    <hr />
-    <div class="content">
-      <%-body -%>
+    <div class="layout-container">
+      <div class="title">
+        <img src="icon.png">
+        <div class="text">Shoplifter</div>
+      </div>
+      <hr />
+      <div class="content">
+        <%-body -%>
+      </div>
     </div>
   </body>
 </html>

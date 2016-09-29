@@ -1,10 +1,12 @@
 <h3>Settings</h3>
 <br/>
-<div><span style="width: 200px; display: inline-block;">Setting 1</span><input type="text"/></div>
+<div><span class="setting">Favorite Color</span><input type="text"/></div>
 <br/>
-<div><span style="width: 200px; display: inline-block;">Setting B</span><input type="text"/></div>
+<div><span class="setting">Name of First Pet</span><input type="text"/></div>
 <br/>
-<div><span style="width: 200px; display: inline-block;">The Third Setting</span><input type="text"/></div>
+<div><span class="setting">Shoe Size</span><input type="text"/></div>
 <br/>
-<input class="btn btn-primary" type="submit" onclick="document.getElementById('hidden').style.display = 'block';" value="Save"/>
-<p id="hidden" style="display: none; margin-top: 10px;">Settings saved...</p>
+<div class="save-container">
+  <input class="btn btn-primary" type="submit" onclick="document.getElementById('nope').style.display = 'block';" value="Save"/>
+  <p id="nope">Nope! 🙈</p>
+</div>

@@ -11,7 +11,7 @@
     "npm": "3.8.9"
   },
   "author": "Andrew Lavers <alavers@system42.net> (http://smooch.io)",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "1.15.2",
     "ejs": "2.5.1",

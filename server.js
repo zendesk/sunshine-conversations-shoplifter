@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  res.renderMain('addToSmooch', config);
+  res.renderMain('addToSunshineConversations', config);
 });
 
 app.get('/oauth', (req, res) => {

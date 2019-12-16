@@ -1,6 +1,6 @@
 # Shoplifter
 
-A reference implementation of Smooch.io OAuth flows. A working example can be found at https://shoplifter.herokuapp.com.
+A reference implementation of Sunshine Conversations OAuth flows. A working example can be found at https://shoplifter.herokuapp.com.
 
 # How to use
 

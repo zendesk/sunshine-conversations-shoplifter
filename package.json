@@ -1,7 +1,7 @@
 {
   "name": "shoplifter",
   "version": "1.0.0",
-  "description": "Test site for Smooch OAuth endpoints",
+  "description": "Test site for Sunshine Conversations OAuth endpoints",
   "main": "index.js",
   "scripts": {
     "start": "node server.js"
@@ -10,7 +10,7 @@
     "node": "6.2.0",
     "npm": "3.8.9"
   },
-  "author": "Andrew Lavers <alavers@system42.net> (http://smooch.io)",
+  "author": "Andrew Lavers <alavers@system42.net> (https://smooch.io)",
   "license": "MIT",
   "dependencies": {
     "body-parser": "1.15.2",

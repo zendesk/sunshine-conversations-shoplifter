@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "1.15.2",
-    "ejs": "2.5.1",
+    "ejs": "3.0.1",
     "ejs-locals": "1.0.2",
     "express": "4.14.0",
     "express-ejs-layouts": "2.2.0",

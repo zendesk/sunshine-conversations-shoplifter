@@ -7,9 +7,11 @@
 # You can set the port that Shoplifter will listen on by modifying the PORT env var below. Then run this
 # script and connect to localhost:PORT in your web browser.
 
-# The base URL for Sunco running in ZDI. Change to localhost:<port>
-# or an ngrok URL if you're running sunco directly locally.
+# The base URL for Sunco running in ZDI.
 export SMOOCH_BASE_URL="https://sunco.zd-dev.com"
+# Change the SunCo base URL to localhost:<port> or an
+# ngrok URL if running sunco locally but not in ZDI.
+# eg. export SMOOCH_BASE_URL="http://localhost:8091"
 
 # The clientId of a document in MongoDB's `oauthclients` collection.
 export CLIENT_ID="your_bot_here" 
@@ -24,7 +26,5 @@ export SECRET="secret"
 
 # Override the default port value (3000) here if you need to.
 export PORT=3000
-
-# set NODE_ENV="production" 
 
 node server.js

@@ -1,22 +1,26 @@
-const Smooch = require('smooch-core');
+const SunshineConversationsClient = require('sunshine-conversations-client');
 
 const config = require('./config');
+const {extractAppId} = require("./TokenUtils");
 
 /**
  * Yields a test app user, creates one if necessary.
  */
-function getOrCreateUser(smooch) {
+function getOrCreateUser(appId) {
   const userId = 'test@shoplifter.com';
+  const apiInstance = new SunshineConversationsClient.UsersApi();
 
-  return smooch.appUsers.get(userId)
+  return apiInstance.getUser(appId, userId)
     .catch((err) => {
       if (!err.response || err.response.status !== 404) {
         throw err;
       }
 
-      return smooch.appUsers.create(userId, {
-        givenName: 'Shoplifter'
+      const userCreateBody = new SunshineConversationsClient.UserCreateBody({
+        externalId: userId,
+        profile: {givenName: 'Shoplifter'}
       });
+      return apiInstance.createUser(appId, userCreateBody);
     })
     .then((response) => {
       return response;
@@ -28,16 +32,17 @@ function getOrCreateUser(smooch) {
  */
 module.exports.sendTestMessage = function(token) {
   let appUser;
-  const smooch = new Smooch({
-    jwt: token
-  }, {
-    serviceUrl: config.smoochBaseUrl + '/v1'
-  });
+  const appId = extractAppId(token);
 
-  return getOrCreateUser(smooch)
+  const defaultSuncoClient = SunshineConversationsClient.ApiClient.instance;
+  defaultSuncoClient.authentications['bearerAuth'].accessToken = token;
+  defaultSuncoClient.basePath = config.smoochBaseUrl
+
+  return getOrCreateUser(appId)
     .then((response) => {
-      appUser = response.appUser;
-      return smooch.appUsers.sendMessage(appUser.userId, {
+      appUser = response.user;
+
+      return new SunshineConversationsClient.MessagePost(appUser.id, {
         text: 'You\'ve successfully integrated Shoplifter!',
         role: 'appUser'
       });

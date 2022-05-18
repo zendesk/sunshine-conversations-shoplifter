@@ -1,16 +1,14 @@
 const express = require('express');
 const ejs = require('ejs');
-const ejsLocals = require('ejs-locals');
 const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser')
 const request = require('request');
-const jwtDecode = require('jwt-decode');
 
 const config = require('./config');
 const smoochApi = require('./smoochApi');
+const { extractAppId } = require("./TokenUtils");
 const app = express();
 
-app.engine('ejs', ejsLocals);
 app.set('views', 'views');
 app.set('view engine', 'ejs');
 
@@ -68,14 +66,6 @@ function exchangeCode(code) {
       }
     });
   });
-}
-
-/**
- * Extracts appId from the jwt
- */
-function extractAppId(token) {
-  const body = jwtDecode(token);
-  return body.appId;
 }
 
 app.get('/exchange', (req, res) => {

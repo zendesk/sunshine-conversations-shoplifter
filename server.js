@@ -6,7 +6,7 @@ const request = require('request');
 
 const config = require('./config');
 const smoochApi = require('./smoochApi');
-const { extractAppId } = require("./TokenUtils");
+const { extractAppId } = require("./tokenUtils");
 const app = express();
 
 app.set('views', 'views');
@@ -78,6 +78,7 @@ app.get('/exchange', (req, res) => {
     })
     .then((appUser) => {
       const appId = extractAppId(token);
+      console.log(`Integration with App ID ${appId} successful!`);
       res.renderMain('success', {
         appUser,
         url: `${config.smoochBaseUrl}/apps/${appId}/${config.clientId}`
@@ -99,3 +100,4 @@ app.post('/remove', (req, res) => {
 });
 
 app.listen(process.env.PORT || 3000);
+console.log(`App listening on ${process.env.PORT || 3000}`);

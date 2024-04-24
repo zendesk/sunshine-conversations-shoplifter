@@ -1,8 +1,6 @@
 const express = require('express');
-const ejs = require('ejs');
 const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
-const request = require('request');
 
 const config = require('./config');
 const smoochApi = require('./smoochApi');
@@ -45,31 +43,26 @@ app.get('/oauth', (req, res) => {
  * Exchanges an authorization code, yields an access token.
  */
 function exchangeCode(code) {
-  return new Promise((resolve, reject) => {
-    request.post(
-      `${config.smoochBaseUrl}/oauth/token`,
-      {
-        form: {
-          code: code,
-          grant_type: 'authorization_code',
-          client_id: config.clientId,
-          client_secret: config.secret,
-        },
+  const {suncoBaseUrl, oauthClientId, oauthClientSecret} = config;
+  return fetch(`${suncoBaseUrl}/oauth/token`, {
+      method: 'POST',
+      body: new URLSearchParams({
+        code,
+        grant_type: 'authorization_code',
+        client_id: oauthClientId,
+        client_secret: oauthClientSecret,
+      }),
+      headers: {
+        'Content-type': 'application/x-www-form-urlencoded',
       },
-      (err, http, body) => {
-        if (err) {
-          return reject(err);
-        }
-
-        try {
-          const { access_token } = JSON.parse(body);
-          resolve(access_token);
-        } catch (err) {
-          reject(err);
-        }
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    );
-  });
+      return response.json();
+    })
+    .then(({ access_token }) => access_token)
 }
 
 app.get('/exchange', (req, res) => {
@@ -85,7 +78,7 @@ app.get('/exchange', (req, res) => {
       console.log(`Integration with App ID ${appId} successful!`);
       res.renderMain('success', {
         appUser,
-        url: `${config.smoochBaseUrl}/apps/${appId}/${config.clientId}`,
+        url: `${config.suncoBaseUrl}/apps/${appId}/${config.oauthClientId}`,
       });
     })
     .catch((err) => {

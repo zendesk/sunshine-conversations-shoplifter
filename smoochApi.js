@@ -70,7 +70,7 @@ module.exports.sendTestMessage = function (token) {
 
   const defaultSuncoClient = SunshineConversationsClient.ApiClient.instance;
   defaultSuncoClient.authentications['bearerAuth'].accessToken = token;
-  defaultSuncoClient.basePath = config.smoochBaseUrl;
+  defaultSuncoClient.basePath = config.suncoBaseUrl;
 
   return getOrCreateUser(appId)
     .then((response) => {

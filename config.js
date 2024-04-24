@@ -1,10 +1,10 @@
 const _ = require('lodash');
 
 let config = {
-  smoochBaseUrl: process.env.SMOOCH_BASE_URL,
-  clientId: process.env.CLIENT_ID,
-  redirectUrl: process.env.REDIRECT_URL,
-  secret: process.env.SECRET,
+  suncoBaseUrl: process.env.SUNCO_BASE_URL,
+  oauthClientId: process.env.OAUTH_CLIENT_ID,
+  oauthRedirectUrl: process.env.OAUTH_REDIRECT_URL,
+  oauthClientSecret: process.env.OAUTH_CLIENT_SECRET,
 };
 
 try {
@@ -15,12 +15,11 @@ try {
 
 config = _.defaults(config, require('./config/default/config.json'));
 
-console.log('Server Configuration:\n', config);
-
-if (!config.secret || !config.redirectUrl || !config.clientId) {
-  throw new Error(
-    'Missing environment variable. Please ensure the following are set: CLIENT_ID, SECRET, REDIRECT_URL'
-  );
+if (!config.suncoBaseUrl || !config.oauthClientSecret || !config.oauthRedirectUrl || !config.oauthClientId) {
+  for (const key in config) {
+    console.log(key, typeof config[key])
+  }
+  throw new Error('Missing environment variable. Please ensure the following are set: SUNCO_BASE_URL, OAUTH_CLIENT_ID, OAUTH_CLIENT_SECRET, OAUTH_REDIRECT_URL');
 }
 
 module.exports = config;

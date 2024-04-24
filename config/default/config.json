@@ -1,4 +1,4 @@
 {
-  "smoochBaseUrl": "https://app.smooch.io",
-  "redirectUrl": "http://localhost:3000/oauth"
+  "suncoBaseUrl": "https://app.smooch.io",
+  "oauthRedirectUrl": "http://localhost:3000/oauth"
 }

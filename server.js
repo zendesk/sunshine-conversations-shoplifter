@@ -7,6 +7,7 @@ const smoochApi = require('./smoochApi');
 const { extractAppId } = require('./tokenUtils');
 const app = express();
 
+app.disable('x-powered-by');
 app.set('views', 'views');
 app.set('view engine', 'ejs');
 
@@ -83,7 +84,7 @@ app.get('/exchange', (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.send(err);
+      res.status(500).send('An unexpected error occurred');
     });
 });
 

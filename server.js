@@ -1,6 +1,8 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
+const winston = require('winston');
+const expressWinston = require('express-winston');
 
 const config = require('./config');
 const smoochApi = require('./smoochApi');
@@ -24,6 +26,16 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(
+  expressWinston.logger({
+    transports: [new winston.transports.Console()],
+    format: winston.format.combine(
+      winston.format.json()
+    ),
+    expressFormat: true,
+  })
+);
+
 app.get('/', (req, res) => {
   res.renderMain('addToSunshineConversations', config);
 });
@@ -44,26 +56,26 @@ app.get('/oauth', (req, res) => {
  * Exchanges an authorization code, yields an access token.
  */
 function exchangeCode(code) {
-  const {suncoBaseUrl, oauthClientId, oauthClientSecret} = config;
+  const { suncoBaseUrl, oauthClientId, oauthClientSecret } = config;
   return fetch(`${suncoBaseUrl}/oauth/token`, {
-      method: 'POST',
-      body: new URLSearchParams({
-        code,
-        grant_type: 'authorization_code',
-        client_id: oauthClientId,
-        client_secret: oauthClientSecret,
-      }),
-      headers: {
-        'Content-type': 'application/x-www-form-urlencoded',
-      },
-    })
+    method: 'POST',
+    body: new URLSearchParams({
+      code,
+      grant_type: 'authorization_code',
+      client_id: oauthClientId,
+      client_secret: oauthClientSecret,
+    }),
+    headers: {
+      'Content-type': 'application/x-www-form-urlencoded',
+    },
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       return response.json();
     })
-    .then(({ access_token }) => access_token)
+    .then(({ access_token }) => access_token);
 }
 
 app.get('/exchange', (req, res) => {

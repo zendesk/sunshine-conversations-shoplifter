@@ -17,8 +17,10 @@
     "ejs": "~3.1.8",
     "express": "~4.19.2",
     "express-ejs-layouts": "2.2.0",
+    "express-winston": "^4.2.0",
     "jwt-decode": "2.1.0",
     "lodash": "~4.17.21",
-    "sunshine-conversations-client": "^10.0.1"
+    "sunshine-conversations-client": "^10.0.1",
+    "winston": "^3.13.0"
   }
 }

@@ -14,13 +14,11 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "~1.20.0",
+    "dotenv": "^17.2.1",
     "ejs": "~3.1.10",
     "express": "^5.0.1",
     "express-ejs-layouts": "2.2.0",
     "express-winston": "^4.2.0",
-    "jwt-decode": "2.1.0",
-    "lodash": "~4.17.21",
-    "sunshine-conversations-client": "^10.0.1",
     "winston": "^3.13.0"
   }
 }

@@ -1,26 +1,10 @@
 # Shoplifter
 
-A reference implementation of Sunshine Conversations OAuth flows. A working example can be found at https://shoplifter.herokuapp.com.
-
-# How to use
-
-1. Install node modules: `npm install`
-1. Run the server `node server.js`
-
-# Configuration
-
-Set the following environment variables to configure the app to target your OAuth Client:
-
-```bash
-set CLIENT_ID <your_client_id>
-set REDIRECT_URL <your_redirect_url>
-set SECRET <your_secret>
-```
-
-```bash
-set NODE_ENV production
-```
+A reference implementation of Sunshine Conversations OAuth flows. A working example can be found at https://sunco-shoplifter.zendesk.com. See [Building a marketplace bot](https://developer.zendesk.com/documentation/conversations/how-to-guides/building-a-marketplace-bot/) for more information.
 
 # Local development
 
-You can edit and use the `run.sh` script to run Shoplifter locally.
+1. `npm install`
+1. `cp .env.example .env` and populate your OAuth settings from apps.zendesk.com. See [Request Bot OAuth Credentials](https://developer.zendesk.com/documentation/marketplace/building-a-marketplace-bot/request-bot-oauth-credentials/
+) for more info.
+1. Run the server `node server.js`

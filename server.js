@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
@@ -5,8 +6,7 @@ const winston = require('winston');
 const expressWinston = require('express-winston');
 
 const config = require('./config');
-const smoochApi = require('./smoochApi');
-const { extractAppId } = require('./tokenUtils');
+const { exchangeCode, createMessagingApi } = require('./zendeskApi');
 const app = express();
 
 app.disable('x-powered-by');
@@ -29,15 +29,16 @@ app.use((req, res, next) => {
 app.use(
   expressWinston.logger({
     transports: [new winston.transports.Console()],
-    format: winston.format.combine(
-      winston.format.json()
-    ),
+    format: winston.format.combine(winston.format.json()),
     expressFormat: true,
-  })
+  }),
 );
 
 app.get('/', (req, res) => {
-  res.renderMain('addToSunshineConversations', config);
+  res.renderMain('addToSunshineConversations', {
+    oauthAuthorizeUrl: `${config.oauthBaseUrl}/oauth/authorize`,
+    oauthClientId: config.oauthClientId,
+  });
 });
 
 app.get('/oauth', (req, res) => {
@@ -52,61 +53,35 @@ app.get('/oauth', (req, res) => {
   }
 });
 
-/**
- * Exchanges an authorization code, yields an access token.
- */
-function exchangeCode(code) {
-  const { suncoBaseUrl, oauthClientId, oauthClientSecret } = config;
-  return fetch(`${suncoBaseUrl}/oauth/token`, {
-    method: 'POST',
-    body: new URLSearchParams({
-      code,
-      grant_type: 'authorization_code',
-      client_id: oauthClientId,
-      client_secret: oauthClientSecret,
-    }),
-    headers: {
-      'Content-type': 'application/x-www-form-urlencoded',
+app.get('/exchange', async (req, res) => {
+  const token = await exchangeCode(req.query.code);
+  const messagingApi = await createMessagingApi(token);
+  const { id: appId, subdomain } = messagingApi.app;
+
+  const user = await messagingApi.getOrCreateUser('shoplifter_sample_user');
+  const conversation = await messagingApi.getOrCreateConversation(user.id);
+  await messagingApi.sendMessage(conversation.id, {
+    author: {
+      type: 'user',
+      userId: user.id,
     },
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(({ access_token }) => access_token);
-}
+    content: {
+      type: 'text',
+      text: 'You have successfully integrated Shoplifter!',
+    },
+  });
 
-app.get('/exchange', (req, res) => {
-  let token;
-
-  exchangeCode(req.query.code)
-    .then((exchangedCode) => {
-      token = exchangedCode;
-      return smoochApi.sendTestMessage(token);
-    })
-    .then((appUser) => {
-      const appId = extractAppId(token);
-      console.log(`Integration with App ID ${appId} successful!`);
-      res.renderMain('success', {
-        appUser,
-        url: `${config.suncoBaseUrl}/apps/${appId}/${config.oauthClientId}`,
-      });
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('An unexpected error occurred');
-    });
-});
-
-app.get('/settings', (req, res) => {
-  res.renderMain('settings');
+  res.renderMain('success', {
+    appId,
+    subdomain,
+    user,
+    settingsUrl: `https://${subdomain}.${config.zendeskDomain}/admin/ai/ai-agents/ai-agents/marketplace-bots`,
+  });
 });
 
 app.post('/remove', (req, res) => {
   console.log(
-    `The integration with ID ${req.body.integrationId} has been been removed!`
+    `The integration with ID ${req.body.integrationId} has been been removed!`,
   );
   res.end();
 });

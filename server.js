@@ -75,6 +75,7 @@ app.get('/exchange', async (req, res) => {
     appId,
     subdomain,
     user,
+    settingsUrl: `https://${subdomain}.${config.zendeskDomain}/admin/ai/ai-agents/ai-agents/marketplace-bots`,
   });
 });
 

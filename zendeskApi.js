@@ -1,6 +1,12 @@
 const path = require('path');
 const config = require('./config');
 
+const marketplaceHeaders = {
+  'X-Zendesk-Marketplace-Name': config.zendeskMarketplaceName,
+  'X-Zendesk-Marketplace-Organization-Id': config.zendeskMarketplaceOrgId,
+  'X-Zendesk-Marketplace-App-Id': config.zendeskMarketplaceAppId,
+};
+
 async function exchangeCode(code) {
   const { oauthBaseUrl, oauthClientId, oauthClientSecret } = config;
   const oauthTokenUrl = `${oauthBaseUrl}/oauth/token`;
@@ -15,6 +21,7 @@ async function exchangeCode(code) {
     }),
     headers: {
       'Content-type': 'application/x-www-form-urlencoded',
+      ...marketplaceHeaders,
     },
   });
 
@@ -36,6 +43,7 @@ async function getTokenInfo(token) {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
+      ...marketplaceHeaders,
     },
   });
 
@@ -71,6 +79,7 @@ class MessagingApi {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.token}`,
+        ...marketplaceHeaders,
       },
       body: body ? JSON.stringify(body) : undefined,
     });

@@ -1,6 +1,6 @@
 # Shoplifter
 
-A reference implementation of Sunshine Conversations OAuth flows. A working example can be found at https://sunco-shoplifter.zendesk.com.
+A reference implementation of Sunshine Conversations OAuth flows. A working example can be found at https://sunco-shoplifter.zendesk.com. See [Building a marketplace bot](https://developer.zendesk.com/documentation/conversations/how-to-guides/building-a-marketplace-bot/) for more information.
 
 # Local development
 

@@ -65,9 +65,7 @@ class MessagingApi {
   constructor(token, tokenInfo) {
     this.token = token;
     this.app = tokenInfo.app;
-    this.appBasePath = path.join(
-      `https://${this.app.subdomain}.${config.zendeskDomain}/sc/v2/apps/${this.app.id}`,
-    );
+    this.appBasePath = `https://${this.app.subdomain}.${config.zendeskDomain}/sc/v2/apps/${this.app.id}`;
   }
 
   async authenticatedRequest(method, endpoint, body) {

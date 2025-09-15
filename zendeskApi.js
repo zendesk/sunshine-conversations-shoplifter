@@ -4,7 +4,7 @@ const config = require('./config');
 const marketplaceHeaders = {
   'X-Zendesk-Marketplace-Name': config.zendeskMarketplaceName,
   'X-Zendesk-Marketplace-Organization-Id': config.zendeskMarketplaceOrgId,
-  'X-Zendesk-Marketplace-App-Id': config.zendeskMarketplaceAppId,
+  'X-Zendesk-Marketplace-Bot-Id': config.zendeskMarketplaceAppId,
 };
 
 async function exchangeCode(code) {

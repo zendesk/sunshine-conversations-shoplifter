@@ -4,7 +4,7 @@ A reference implementation of Sunshine Conversations OAuth flows. A working exam
 
 # Local development
 
-Use Node.js 24.22.
+Use Node.js 24.22 and npm 11.19.
 
 1. `npm install`
 1. `cp .env.example .env` and populate your OAuth settings from apps.zendesk.com. See [Request Bot OAuth Credentials](https://developer.zendesk.com/documentation/marketplace/building-a-marketplace-bot/request-bot-oauth-credentials/
